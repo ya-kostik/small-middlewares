@@ -8,24 +8,29 @@
   "author": "Constantin Tsukanov <c@indotech.ru>",
   "license": "Apache-2.0",
   "files": [
-  	"Middlewares.js"
+    "Middlewares.js",
+    "build/Middlewares.cjs.js"
   ],
   "scripts": {
-  	"test": "NODE_OPTIONS=--experimental-vm-modules jest",
-  	"lint": "eslint ./",
-  	"tarball": "tarball=\"$(npm pack .)\"; wc -c \"${tarball}\"; tar tvf \"${tarball}\"; rm \"${tarball}\";"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "lint": "eslint ./",
+    "tarball": "tarball=\"$(npm pack .)\"; wc -c \"${tarball}\"; tar tvf \"${tarball}\"; rm \"${tarball}\";",
+    "_rollup": "rollup Middlewares.js --file build/Middlewares.cjs.js --format cjs",
+    "_cjs_package": "echo '{\"name\":\"small-middlewares\"}' > ./build/package.json",
+    "build": "yarn _rollup && yarn _cjs_package"
   },
   "devDependencies": {
     "eslint": "^8.1.0",
-    "jest": "^27.3.1"
+    "jest": "^27.3.1",
+    "rollup": "^2.59.0"
   },
   "keywords": [
-  	"small",
-  	"middleware",
-  	"tiny",
-  	"middlewares",
-  	"small-middlewares",
-  	"web",
+    "small",
+    "middleware",
+    "tiny",
+    "middlewares",
+    "small-middlewares",
+    "web",
     "app",
     "api",
     "custom"
