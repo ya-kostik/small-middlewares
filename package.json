@@ -1,18 +1,33 @@
 {
   "name": "small-middlewares",
-  "type": "module",
-  "version": "1.0.0",
   "description": "Small middlewares library for any purposes",
-  "main": "index.js",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "Middlewares.js",
   "repository": "git@github.com:ya-kostik/small-middlewares.git",
   "author": "Constantin Tsukanov <c@indotech.ru>",
   "license": "Apache-2.0",
-  "private": false,
+  "files": [
+  	"Middlewares.js"
+  ],
   "scripts": {
-  	"test": "NODE_OPTIONS=--experimental-vm-modules jest"
+  	"test": "NODE_OPTIONS=--experimental-vm-modules jest",
+  	"lint": "eslint ./",
+  	"tarball": "tarball=\"$(npm pack .)\"; wc -c \"${tarball}\"; tar tvf \"${tarball}\"; rm \"${tarball}\";"
   },
   "devDependencies": {
     "eslint": "^8.1.0",
     "jest": "^27.3.1"
-  }
+  },
+  "keywords": [
+  	"small",
+  	"middleware",
+  	"tiny",
+  	"middlewares",
+  	"small-middlewares",
+  	"web",
+    "app",
+    "api",
+    "custom"
+  ]
 }
