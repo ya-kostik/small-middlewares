@@ -1,7 +1,7 @@
 {
   "name": "small-middlewares",
   "description": "Small middlewares library for any purposes",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
   "main": "Middlewares.js",
   "repository": "git@github.com:ya-kostik/small-middlewares.git",
@@ -17,7 +17,8 @@
     "tarball": "tarball=\"$(npm pack .)\"; wc -c \"${tarball}\"; tar tvf \"${tarball}\"; rm \"${tarball}\";",
     "_rollup": "rollup Middlewares.js --file build/Middlewares.cjs.js --format cjs",
     "_cjs_package": "echo '{\"name\":\"small-middlewares\"}' > ./build/package.json",
-    "build": "yarn _rollup && yarn _cjs_package"
+    "build": "yarn _rollup && yarn _cjs_package",
+    "prepublishOnly": "yarn build"
   },
   "devDependencies": {
     "eslint": "^8.1.0",
