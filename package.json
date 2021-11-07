@@ -9,7 +9,8 @@
   "license": "Apache-2.0",
   "private": false,
   "scripts": {
-  	"test": "NODE_OPTIONS=--experimental-vm-modules jest"
+  	"test": "NODE_OPTIONS=--experimental-vm-modules jest",
+  	"lint": "eslint ./"
   },
   "devDependencies": {
     "eslint": "^8.1.0",
