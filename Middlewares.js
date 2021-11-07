@@ -1,10 +1,38 @@
-import { isFunction } from './lib/isFunction.js';
-import { MiddlewaresError } from './MiddlewaresError.js';
+const ErrorMessage = {
+	VALUE_IS_NOT_A_MIDDLEWARE: 'Value is not a middleware. Expected a Function or an AsyncFunction'
+};
+
+const FunctionTag = {
+	FUNCTION: '[object Function]',
+	ASYNC_FUNCTION: '[object AsyncFunction]'
+};
 
 const RelativePosition = {
 	BEFORE: 0,
 	AFTER: 1
 };
+
+/**
+ * Checks that a middleware is correct
+ * Based on isFunction from lodash <https://lodash.com/license>
+ *
+ * @license
+ * Lodash <https://lodash.com/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+export function isMiddleware(value) {
+	const tag = Object.prototype.toString.call(value);
+	return tag === FunctionTag.FUNCTION || tag === FunctionTag.ASYNC_FUNCTION;
+}
+
+/**
+ * MiddlewaresError
+ * Represents class for an errors from this module
+ */
+export class MiddlewaresError extends Error {}
 
 /**
  * Middlewares
@@ -82,10 +110,8 @@ export class Middlewares {
 		};
 
 		for (const middleware of middlewares) {
-			if (!isFunction(middleware)) {
-				throw new MiddlewaresError(
-					MiddlewaresError.VALUE_IS_NOT_A_MIDDLEWARE
-				);
+			if (!isMiddleware(middleware)) {
+				throw new MiddlewaresError(ErrorMessage.VALUE_IS_NOT_A_MIDDLEWARE);
 			}
 			commands[command](middleware, ...args);
 		}
@@ -104,7 +130,7 @@ export class Middlewares {
 		this.#middlewares.unshift(middleware);
 	}
 
-	#useRelative(middleware, fn, diff = 0) {
+	#useRelative(middleware, fn, diff) {
 		for (let i = 0; i < this.#middlewares.length; i++) {
 			const m = this.#middlewares[i];
 			if (fn !== m) continue;

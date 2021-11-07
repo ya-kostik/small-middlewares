@@ -1,7 +1,6 @@
 import { jest, describe, test, expect } from '@jest/globals';
 
-import { Middlewares } from './Middlewares.js';
-import { MiddlewaresError } from './MiddlewaresError.js';
+import { Middlewares, MiddlewaresError } from './Middlewares.js';
 
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
 
