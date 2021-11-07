@@ -1,0 +1,18 @@
+{
+  "name": "small-middlewares",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Small middlewares library for any purposes",
+  "main": "index.js",
+  "repository": "git@github.com:ya-kostik/small-middlewares.git",
+  "author": "Constantin Tsukanov <c@indotech.ru>",
+  "license": "Apache-2.0",
+  "private": false,
+  "scripts": {
+  	"test": "NODE_OPTIONS=--experimental-vm-modules jest"
+  },
+  "devDependencies": {
+    "eslint": "^8.1.0",
+    "jest": "^27.3.1"
+  }
+}
