@@ -233,4 +233,64 @@ describe('Middlewares', () => {
 
 		expect(results).toEqual(expectedResults);
 	});
+
+	test('wrap', async () => {
+		const instance = new Middlewares();
+		const middlewares = [jest.fn(), jest.fn(), jest.fn()];
+		instance.use(...middlewares);
+		const message = { text: 'hello test' };
+		const fn = jest.fn(() => message);
+		const args = [1, 2, 3];
+		const wrappedFn = instance.wrap(fn);
+		const result = await wrappedFn(...args);
+
+		for (const middleware of middlewares) {
+			expect(middleware).toHaveBeenCalledWith(...args);
+		}
+		expect(fn).toHaveBeenCalledWith(...args);
+		expect(result).toBe(message);
+	});
+
+	test('wrap break', async () => {
+		const instance = new Middlewares();
+		const middlewares = [jest.fn(), jest.fn(() => false), jest.fn()];
+		instance.use(...middlewares);
+		const message = { text: 'hello test' };
+		const fn = jest.fn(() => message);
+		const wrappedFn = instance.wrap(fn);
+		const result = await wrappedFn();
+
+		expect(fn).not.toHaveBeenCalledWith();
+		expect(result).not.toBe(message);
+	});
+
+	test('wrapWithStop', async () => {
+		const instance = new Middlewares();
+		const middlewares = [jest.fn(), jest.fn(), jest.fn()];
+		instance.use(...middlewares);
+		const message = { text: 'hello test' };
+		const fn = jest.fn(() => message);
+		const args = [1, 2, 3];
+		const wrappedFn = instance.wrapWithStop(fn);
+		const result = await wrappedFn(...args);
+
+		for (const middleware of middlewares) {
+			expect(middleware).toHaveBeenCalledWith(...args, expect.any(Function));
+		}
+		expect(fn).toHaveBeenCalledWith(...args);
+		expect(result).toBe(message);
+	});
+
+	test('wrapWithStop break', async () => {
+		const instance = new Middlewares();
+		const middlewares = [jest.fn(), jest.fn((stop) => stop()), jest.fn()];
+		instance.use(...middlewares);
+		const message = { text: 'hello test' };
+		const fn = jest.fn(() => message);
+		const wrappedFn = instance.wrapWithStop(fn);
+		const result = await wrappedFn();
+
+		expect(fn).not.toHaveBeenCalledWith();
+		expect(result).not.toBe(message);
+	});
 });

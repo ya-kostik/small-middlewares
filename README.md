@@ -146,11 +146,11 @@ It like use, but it adds middelewares in the head of the chain.
 Each middleware is a new param
 
 ## `instance.useBefore(middleware, ...middlewares)`
-It adds one or many middlewares before a specific middleware (first param)
+It adds one or many middlewares before a specific middleware (first param).
 Each middleware is a new param
 
 ## `instance.useAfter(middleware, ...middlewares)`
-It adds one or many middlewares after a specific middleware (first param)
+It adds one or many middlewares after a specific middleware (first param).
 Each middleware is a new param
 
 ## `instance.reset()`
@@ -186,10 +186,23 @@ if (result) {
 ```
 
 The `processWithStop` does not check that returns or resolves a middleware.
-The method stops only when `stop` function were called.
+The chain stops only when `stop` function were called.
 
-It also possible to put an error to the `stop` function.
+It also possible to put an error into the `stop` function params.
 If middleware does this, the error will be thrown from `processWithStop`.
 
 The method resolves `false`, when it was stopped, and `true` in other case.
 
+## `instance.wrap(fn)`
+This method returns a new function, which wraps around `fn`.
+When the wrapped function calls, it will process middlewares of the `instance`.
+
+`fn` will be called only when the chain will be completed.
+
+You can change a context of the wrapped function if you wish.
+You just need to attach it to an object, or you could use `.bind`, `.apply` or `.call` methods.
+
+The wrapped function resolves result of the `fn` or `undefined`, if the chain has not completed.
+
+## `instance.wrapWithStop(fn)`
+This method like wrap, but it uses the `processWithStop` instead of the `process`.
