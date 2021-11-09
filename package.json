@@ -1,7 +1,7 @@
 {
   "name": "small-middlewares",
   "description": "Small middlewares library for any purposes",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "type": "module",
   "main": "Middlewares.js",
   "repository": "git@github.com:ya-kostik/small-middlewares.git",
