@@ -18,7 +18,7 @@
     "_rollup": "rollup Middlewares.js --file build/Middlewares.cjs.js --format cjs",
     "_cjs_package": "echo '{\"name\":\"small-middlewares\",\"main\":\"Middlewares.cjs.js\"}' > ./build/package.json",
     "build": "yarn _rollup && yarn _cjs_package",
-    "prepublishOnly": "yarn build && tarball"
+    "prepublishOnly": "yarn build && yarn tarball"
   },
   "devDependencies": {
     "eslint": "^8.1.0",
