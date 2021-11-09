@@ -189,7 +189,7 @@ The `processWithStop` does not check that returns or resolves a middleware.
 The method stops only when `stop` function were called.
 
 It also possible to put an error to the `stop` function.
-If middleware do this, the error will be thrown from `processWithStop`.
+If middleware does this, the error will be thrown from `processWithStop`.
 
 The method resolves `false`, when it was stopped, and `true` in other case.
 
