@@ -170,4 +170,33 @@ export class Middlewares {
 		}
 		return true;
 	}
+
+	#wrap(fn, type) {
+		const middlewares = this;
+		return async function() {
+			const result = await middlewares[type](...arguments);
+			if (!result) return;
+			return fn.apply(this, arguments);
+		};
+	}
+
+	/**
+	 * Wraps around a function and returns new function which process middlewares
+	 * If chain is completed, it will call the original function
+	 * @param  {Function} fn — function to wrap around
+	 * @return {Function} new wrapped function
+	 */
+	wrap(fn) {
+		return this.#wrap(fn, 'process');
+	}
+
+	/**
+	 * Wraps around a function and returns new function which process middlewares
+	 * If chain is completed, it will call the original function
+	 * @param  {Function} fn — function to wrap around
+	 * @return {Function} new wrapped function
+	 */
+	wrapWithStop(fn) {
+		return this.#wrap(fn, 'processWithStop');
+	}
 }
