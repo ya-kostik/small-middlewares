@@ -17,8 +17,6 @@ jobs:
         run: yarn lint
       - name: Test
         run: yarn test
-      - name: Tarball
-        run: yarn tarball
       - name: Publish
         run: yarn publish
         env:
